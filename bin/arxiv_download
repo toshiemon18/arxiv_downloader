@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "../app"
+
+if $0 == __FILE__
+  include ArXiv
+  CLI.new.run
+end
