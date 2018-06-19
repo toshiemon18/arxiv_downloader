@@ -1,14 +1,42 @@
-# coding : utf-8
-
 # ==============
 # app.rb
 # ==============
 # arxiv printer
 
-require "./lib/arXiv_downloader"
+require "open-uri"
+require "nokogiri"
 require "optparse"
 
 module ArXiv
+  class PaperDownloader
+    attr_accessor :url
+
+    def initialize(url)
+      @url = url
+      @html = nil
+      fetch_html
+    end
+
+    def fetch_paper_title
+      title = @html.xpath("//*[@id=\"abs\"]/div[2]/h1/text()").text.strip!
+    end
+
+    def download
+      paper_url = pdf_link
+      paper = open(paper_url)
+    end
+
+    private
+    def pdf_link
+      url.gsub!("abs", "pdf")
+    end
+
+    def fetch_html
+      html = Nokogiri::HTML(open(@url))
+      @html = html
+    end
+  end
+
   class CLI
     def options_define(argv=ARGV)
       @opt = OptionParser.new
