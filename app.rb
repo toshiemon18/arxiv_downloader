@@ -45,7 +45,7 @@ module ArXiv
         distpath: "#{ENV["DIST_DIR"]}"
       }
       @opt.on("--url URL", "-u URL", "Target URL what arXiv page") {|v| @options[:url] = v}
-      @opt.on("--dist DIST", "-d DIST", "Dropbox dir") {|v| @options[:dropbox_path] = v}
+      @opt.on("--dist DIST", "-d DIST", "Download dir") {|v| @options[:dropbox_path] = v}
     end
 
     def run
